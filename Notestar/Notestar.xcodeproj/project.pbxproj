@@ -11,8 +11,8 @@
 		A86E297B2A6258F900916FFC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86E297A2A6258F900916FFC /* ContentView.swift */; };
 		A86E297D2A6258FA00916FFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A86E297C2A6258FA00916FFC /* Assets.xcassets */; };
 		A86E29802A6258FA00916FFC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A86E297F2A6258FA00916FFC /* Preview Assets.xcassets */; };
-		A86E29822A6258FA00916FFC /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86E29812A6258FA00916FFC /* Persistence.swift */; };
 		A86E29852A6258FA00916FFC /* Notestar.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A86E29832A6258FA00916FFC /* Notestar.xcdatamodeld */; };
+		A879812A2A62C5B400DE72A7 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87981292A62C5B400DE72A7 /* PersistenceController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,8 +21,8 @@
 		A86E297A2A6258F900916FFC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A86E297C2A6258FA00916FFC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A86E297F2A6258FA00916FFC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		A86E29812A6258FA00916FFC /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		A86E29842A6258FA00916FFC /* Notestar.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Notestar.xcdatamodel; sourceTree = "<group>"; };
+		A87981292A62C5B400DE72A7 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,11 +55,11 @@
 		A86E29772A6258F900916FFC /* Notestar */ = {
 			isa = PBXGroup;
 			children = (
-				A86E29782A6258F900916FFC /* NotestarApp.swift */,
-				A86E297A2A6258F900916FFC /* ContentView.swift */,
 				A86E297C2A6258FA00916FFC /* Assets.xcassets */,
-				A86E29812A6258FA00916FFC /* Persistence.swift */,
+				A86E297A2A6258F900916FFC /* ContentView.swift */,
 				A86E29832A6258FA00916FFC /* Notestar.xcdatamodeld */,
+				A86E29782A6258F900916FFC /* NotestarApp.swift */,
+				A87981292A62C5B400DE72A7 /* PersistenceController.swift */,
 				A86E297E2A6258FA00916FFC /* Preview Content */,
 			);
 			path = Notestar;
@@ -143,8 +143,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A86E29822A6258FA00916FFC /* Persistence.swift in Sources */,
 				A86E29852A6258FA00916FFC /* Notestar.xcdatamodeld in Sources */,
+				A879812A2A62C5B400DE72A7 /* PersistenceController.swift in Sources */,
 				A86E297B2A6258F900916FFC /* ContentView.swift in Sources */,
 				A86E29792A6258F900916FFC /* NotestarApp.swift in Sources */,
 			);
