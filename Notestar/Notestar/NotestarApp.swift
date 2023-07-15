@@ -8,8 +8,16 @@ struct NotestarApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            NavigationStack {
+                ContentView()
+                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                    .navigationDestination(for: NavigationDestination.self) { destination in
+                        switch destination {
+                        case .note(let note):
+                            NoteView(note: note)
+                        }
+                    }
+            }
         }
     }
 }
