@@ -14,7 +14,7 @@ struct ContentView: View {
     var body: some View {
         List {
             ForEach(items) { item in
-                NavigationLink("Item at \(item.timestamp!, formatter: itemFormatter)", value: NavigationDestination.note(item))
+                NavigationLink(item.title ?? "New Note", value: NavigationDestination.note(item))
             }
             .onDelete(perform: deleteItems)
         }
