@@ -21,51 +21,64 @@ struct NoteView: View {
 
     var body: some View {
         VStack {
-            TextField(
-                "New Note",
-                text: self.$title,
-                onEditingChanged: { isEditing in
-                    if !isEditing && (note.title ?? "" != self.title) {
-                        note.title = self.title
-                        saveNote()
-                    }
-                })
-                .font(.title)
-                .fontWeight(.bold)
+            titleField
             Divider()
-            TextField(
-                "Add a summary",
-                text: self.$summary,
-                onEditingChanged: { isEditing in
-                    if !isEditing && (note.summary ?? "" != self.summary) {
-                        note.summary = self.summary
-                        saveNote()
-                    }
-                }
-            )
-                .padding(.top, 8)
+            summaryField
             Divider()
-            TextField(
-                "Add the note!",
-                text: self.$content,
-                onEditingChanged: { isEditing in
-                    if !isEditing && (note.body ?? "" != self.content) {
-                        note.body = self.content
-                        saveNote()
-                    }
-                }
-            )
-                .padding(.top, 8)
+            contentField
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .padding(.horizontal, 16)
         .padding(.vertical, 16)
     }
 
+    var titleField: some View {
+        TextField(
+            "New Note",
+            text: self.$title,
+            onEditingChanged: { isEditing in
+                if !isEditing && (note.title ?? "" != self.title) {
+                    note.title = self.title
+                    saveNote()
+                }
+            })
+            .font(.title)
+            .fontWeight(.bold)
+    }
+
+    var summaryField: some View {
+        TextField(
+            "Add a summary",
+            text: self.$summary,
+            onEditingChanged: { isEditing in
+                if !isEditing && (note.summary ?? "" != self.summary) {
+                    note.summary = self.summary
+                    saveNote()
+                }
+            }
+        )
+            .padding(.top, 8)
+    }
+
+    var contentField: some View {
+        TextField(
+            "Add the note!",
+            text: self.$content,
+            onEditingChanged: { isEditing in
+                if !isEditing && (note.body ?? "" != self.content) {
+                    note.body = self.content
+                    saveNote()
+                }
+            }
+        )
+            .padding(.top, 8)
+    }
+
     private func saveNote() {
         do {
             if let context {
                 if context.hasChanges {
+                    note.timestamp = Date.now
                     try context.save()
                 }
             } else {
