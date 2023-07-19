@@ -5,10 +5,11 @@ import SwiftUI
 @main
 struct NotestarApp: App {
     let persistenceController = PersistenceController.shared
+    @ObservedObject private var navigationCoordinator = NavigationCoordinator()
 
     var body: some Scene {
         WindowGroup {
-            NavigationStack {
+            NavigationStack(path: $navigationCoordinator.navigationPath) {
                 ContentView()
                     .environment(\.managedObjectContext, persistenceController.container.viewContext)
                     .navigationDestination(for: NavigationDestination.self) { destination in
@@ -18,6 +19,11 @@ struct NotestarApp: App {
                         }
                     }
             }
+            .environmentObject(navigationCoordinator)
         }
     }
+}
+
+final class NavigationCoordinator: ObservableObject {
+    @Published var navigationPath = NavigationPath()
 }
