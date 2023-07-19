@@ -5,6 +5,7 @@ import CoreData
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @State private var path = NavigationPath()
 
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Note.timestamp, ascending: true)],
@@ -12,23 +13,37 @@ struct ContentView: View {
     private var items: FetchedResults<Note>
 
     var body: some View {
-        List {
-            ForEach(items) { item in
-                NavigationLink(item.title ?? "New Note", value: NavigationDestination.note(item))
+        NavigationStack(path: $path) {
+            List {
+                ForEach(items) { item in
+                    NavigationLink(item.title ?? "New Note", value: NavigationDestination.note(item))
+                }
+                .onDelete(perform: deleteItems)
             }
-            .onDelete(perform: deleteItems)
-        }
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                EditButton()
-            }
-            ToolbarItem {
-                Button(action: addItem) {
-                    Label("Add Item", systemImage: "plus")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    EditButton()
+                }
+                ToolbarItem {
+                    Button(action: addItem) {
+                        Label("Add Item", systemImage: "plus")
+                    }
                 }
             }
+            .onAppear {
+                clearNullNotes()
+            }
+            .navigationDestination(for: NavigationDestination.self) { destination in
+                switch destination {
+                case .note(let note):
+                    NoteView(note: note)
+                }
+            }
+            .navigationDestination(for: String.self) { value in
+                Text(value)
+            }
+            Text("Select an item")
         }
-        Text("Select an item")
     }
 
     private func addItem() {
@@ -36,16 +51,7 @@ struct ContentView: View {
             let newItem = Note(context: viewContext)
             newItem.timestamp = Date()
             newItem.id = UUID()
-            newItem.title = UUID().uuidString
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
+            path.append(NavigationDestination.note(newItem))
         }
     }
 
@@ -56,10 +62,20 @@ struct ContentView: View {
             do {
                 try viewContext.save()
             } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+                print("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+        }
+    }
+
+    private func clearNullNotes() {
+        withAnimation {
+            items.filter({ $0.isNull() }).forEach(viewContext.delete)
+            do {
+                try viewContext.save()
+            } catch {
+                let nsError = error as NSError
+                fatalError("Failed to delete nil items: \(nsError), \(nsError.userInfo)")
             }
         }
     }

@@ -76,16 +76,24 @@ struct NoteView: View {
 
     private func saveNote() {
         do {
-            if let context {
-                if context.hasChanges {
-                    note.timestamp = Date.now
-                    try context.save()
+            if let context, context.hasChanges {
+                if !note.isNull() && note.title == nil {
+                    note.title = "New Note \(getCurrentDate())"
                 }
+                note.timestamp = Date.now
+                try context.save()
             } else {
                 print("No context found for saving note.")
             }
         } catch {
             print("Error while saving note: \(error)")
         }
+    }
+
+    private func getCurrentDate() -> String {
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        formatter.dateStyle = .short
+        return formatter.string(from: Date.now)
     }
 }

@@ -15,6 +15,7 @@
 		A8792CCC2A63125500DF5D63 /* NavigationDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8792CCB2A63125500DF5D63 /* NavigationDestination.swift */; };
 		A8792CCE2A63176800DF5D63 /* NoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8792CCD2A63176800DF5D63 /* NoteView.swift */; };
 		A879812A2A62C5B400DE72A7 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87981292A62C5B400DE72A7 /* PersistenceController.swift */; };
+		A8C98F472A682C510017E590 /* Note+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C98F462A682C510017E590 /* Note+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		A8792CCB2A63125500DF5D63 /* NavigationDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDestination.swift; sourceTree = "<group>"; };
 		A8792CCD2A63176800DF5D63 /* NoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteView.swift; sourceTree = "<group>"; };
 		A87981292A62C5B400DE72A7 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
+		A8C98F462A682C510017E590 /* Note+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 				A86E297E2A6258FA00916FFC /* Preview Content */,
 				A8792CCB2A63125500DF5D63 /* NavigationDestination.swift */,
 				A8792CCD2A63176800DF5D63 /* NoteView.swift */,
+				A8C98F462A682C510017E590 /* Note+Extension.swift */,
 			);
 			path = Notestar;
 			sourceTree = "<group>";
@@ -154,6 +157,7 @@
 				A8792CCE2A63176800DF5D63 /* NoteView.swift in Sources */,
 				A86E297B2A6258F900916FFC /* ContentView.swift in Sources */,
 				A86E29792A6258F900916FFC /* NotestarApp.swift in Sources */,
+				A8C98F472A682C510017E590 /* Note+Extension.swift in Sources */,
 				A8792CCC2A63125500DF5D63 /* NavigationDestination.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
