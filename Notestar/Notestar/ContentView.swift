@@ -14,6 +14,11 @@ struct ContentView: View {
 
     var body: some View {
         NavigationStack(path: $path) {
+            if items.count == .zero {
+                Button(action: addItem, label: {
+                    Label("Add Item", systemImage: "plus")
+                })
+            }
             List {
                 ForEach(items) { item in
                     NavigationLink(item.title ?? "New Note", value: NavigationDestination.note(item))
@@ -42,7 +47,6 @@ struct ContentView: View {
             .navigationDestination(for: String.self) { value in
                 Text(value)
             }
-            Text("Select an item")
         }
     }
 
