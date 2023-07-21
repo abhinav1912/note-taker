@@ -11,6 +11,20 @@ struct ContentView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \Note.timestamp, ascending: true)],
         animation: .default)
     private var items: FetchedResults<Note>
+    @State var searchText = ""
+
+    var searchQuery: Binding<String> {
+        Binding {
+            searchText
+        } set: { newVal in
+            searchText = newVal
+            if newVal.isEmpty {
+                items.nsPredicate = NSPredicate(value: true)
+            } else {
+                items.nsPredicate = NSPredicate(format: "title CONTAINS[cd] %@", newVal)
+            }
+        }
+    }
 
     var body: some View {
         NavigationStack(path: $path) {
@@ -25,6 +39,7 @@ struct ContentView: View {
                 }
                 .onDelete(perform: deleteItems)
             }
+            .searchable(text: searchQuery)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     EditButton()
