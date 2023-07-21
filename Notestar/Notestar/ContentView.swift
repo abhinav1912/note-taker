@@ -13,32 +13,12 @@ struct ContentView: View {
     private var items: FetchedResults<Note>
     @State var searchText = ""
 
-    var searchQuery: Binding<String> {
-        Binding {
-            searchText
-        } set: { newVal in
-            searchText = newVal
-            if newVal.isEmpty {
-                items.nsPredicate = NSPredicate(value: true)
-            } else {
-                items.nsPredicate = NSPredicate(format: "title CONTAINS[cd] %@", newVal)
-            }
-        }
-    }
-
     var body: some View {
         NavigationStack(path: $path) {
             if items.count == .zero {
-                Button(action: addItem, label: {
-                    Label("Add Item", systemImage: "plus")
-                })
+                addButtonOnEmptyView
             }
-            List {
-                ForEach(items) { item in
-                    NavigationLink(item.title ?? "New Note", value: NavigationDestination.note(item))
-                }
-                .onDelete(perform: deleteItems)
-            }
+            noteList
             .searchable(text: searchQuery)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -65,7 +45,37 @@ struct ContentView: View {
         }
     }
 
-    private func addItem() {
+    var addButtonOnEmptyView: some View {
+        Button(action: addItem, label: {
+            Label("Add Item", systemImage: "plus")
+        })
+    }
+
+    var noteList: some View {
+        List {
+            ForEach(items) { item in
+                NavigationLink(item.title ?? "New Note", value: NavigationDestination.note(item))
+            }
+            .onDelete(perform: deleteItems)
+        }
+    }
+}
+
+private extension ContentView {
+    var searchQuery: Binding<String> {
+        Binding {
+            searchText
+        } set: { newVal in
+            searchText = newVal
+            if newVal.isEmpty {
+                items.nsPredicate = NSPredicate(value: true)
+            } else {
+                items.nsPredicate = NSPredicate(format: "title CONTAINS[cd] %@", newVal)
+            }
+        }
+    }
+
+    func addItem() {
         withAnimation {
             let newItem = Note(context: viewContext)
             newItem.timestamp = Date()
@@ -74,7 +84,7 @@ struct ContentView: View {
         }
     }
 
-    private func deleteItems(offsets: IndexSet) {
+    func deleteItems(offsets: IndexSet) {
         withAnimation {
             offsets.map { items[$0] }.forEach(viewContext.delete)
 
@@ -87,7 +97,7 @@ struct ContentView: View {
         }
     }
 
-    private func clearNullNotes() {
+    func clearNullNotes() {
         withAnimation {
             items.filter({ $0.isNull() }).forEach(viewContext.delete)
             do {
@@ -99,13 +109,6 @@ struct ContentView: View {
         }
     }
 }
-
-private let itemFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
-    return formatter
-}()
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
