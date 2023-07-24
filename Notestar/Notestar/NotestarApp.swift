@@ -8,7 +8,7 @@ struct NotestarApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            FoldersListView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }

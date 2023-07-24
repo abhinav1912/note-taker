@@ -8,26 +8,28 @@
 
 /* Begin PBXBuildFile section */
 		A86E29792A6258F900916FFC /* NotestarApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86E29782A6258F900916FFC /* NotestarApp.swift */; };
-		A86E297B2A6258F900916FFC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86E297A2A6258F900916FFC /* ContentView.swift */; };
+		A86E297B2A6258F900916FFC /* NotesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86E297A2A6258F900916FFC /* NotesListView.swift */; };
 		A86E297D2A6258FA00916FFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A86E297C2A6258FA00916FFC /* Assets.xcassets */; };
 		A86E29802A6258FA00916FFC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A86E297F2A6258FA00916FFC /* Preview Assets.xcassets */; };
 		A86E29852A6258FA00916FFC /* Notestar.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A86E29832A6258FA00916FFC /* Notestar.xcdatamodeld */; };
 		A8792CCC2A63125500DF5D63 /* NavigationDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8792CCB2A63125500DF5D63 /* NavigationDestination.swift */; };
 		A8792CCE2A63176800DF5D63 /* NoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8792CCD2A63176800DF5D63 /* NoteView.swift */; };
 		A879812A2A62C5B400DE72A7 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87981292A62C5B400DE72A7 /* PersistenceController.swift */; };
+		A89B21992A6EC446007E8985 /* FoldersListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89B21982A6EC446007E8985 /* FoldersListView.swift */; };
 		A8C98F472A682C510017E590 /* Note+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C98F462A682C510017E590 /* Note+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		A86E29752A6258F900916FFC /* Notestar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notestar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A86E29782A6258F900916FFC /* NotestarApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotestarApp.swift; sourceTree = "<group>"; };
-		A86E297A2A6258F900916FFC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		A86E297A2A6258F900916FFC /* NotesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesListView.swift; sourceTree = "<group>"; };
 		A86E297C2A6258FA00916FFC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A86E297F2A6258FA00916FFC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		A86E29842A6258FA00916FFC /* Notestar.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Notestar.xcdatamodel; sourceTree = "<group>"; };
 		A8792CCB2A63125500DF5D63 /* NavigationDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDestination.swift; sourceTree = "<group>"; };
 		A8792CCD2A63176800DF5D63 /* NoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteView.swift; sourceTree = "<group>"; };
 		A87981292A62C5B400DE72A7 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
+		A89B21982A6EC446007E8985 /* FoldersListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldersListView.swift; sourceTree = "<group>"; };
 		A8C98F462A682C510017E590 /* Note+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -62,7 +64,7 @@
 			isa = PBXGroup;
 			children = (
 				A86E297C2A6258FA00916FFC /* Assets.xcassets */,
-				A86E297A2A6258F900916FFC /* ContentView.swift */,
+				A86E297A2A6258F900916FFC /* NotesListView.swift */,
 				A86E29832A6258FA00916FFC /* Notestar.xcdatamodeld */,
 				A86E29782A6258F900916FFC /* NotestarApp.swift */,
 				A87981292A62C5B400DE72A7 /* PersistenceController.swift */,
@@ -70,6 +72,7 @@
 				A8792CCB2A63125500DF5D63 /* NavigationDestination.swift */,
 				A8792CCD2A63176800DF5D63 /* NoteView.swift */,
 				A8C98F462A682C510017E590 /* Note+Extension.swift */,
+				A89B21982A6EC446007E8985 /* FoldersListView.swift */,
 			);
 			path = Notestar;
 			sourceTree = "<group>";
@@ -155,9 +158,10 @@
 				A86E29852A6258FA00916FFC /* Notestar.xcdatamodeld in Sources */,
 				A879812A2A62C5B400DE72A7 /* PersistenceController.swift in Sources */,
 				A8792CCE2A63176800DF5D63 /* NoteView.swift in Sources */,
-				A86E297B2A6258F900916FFC /* ContentView.swift in Sources */,
+				A86E297B2A6258F900916FFC /* NotesListView.swift in Sources */,
 				A86E29792A6258F900916FFC /* NotestarApp.swift in Sources */,
 				A8C98F472A682C510017E590 /* Note+Extension.swift in Sources */,
+				A89B21992A6EC446007E8985 /* FoldersListView.swift in Sources */,
 				A8792CCC2A63125500DF5D63 /* NavigationDestination.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

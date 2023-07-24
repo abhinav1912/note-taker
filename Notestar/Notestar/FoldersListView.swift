@@ -3,14 +3,16 @@
 import SwiftUI
 import CoreData
 
-struct ContentView: View {
+struct FoldersListView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @State private var path = NavigationPath()
+    @State private var folderName = ""
+    @State private var isAddingNewFolder = false
 
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Note.timestamp, ascending: true)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \Folder.title, ascending: true)],
         animation: .default)
-    private var items: FetchedResults<Note>
+    private var items: FetchedResults<Folder>
     @State var searchText = ""
 
     var body: some View {
@@ -25,43 +27,46 @@ struct ContentView: View {
                     EditButton()
                 }
                 ToolbarItem {
-                    Button(action: addItem) {
+                    Button(action: showFolderAdditionAlert) {
                         Label("Add Item", systemImage: "plus")
                     }
                 }
             }
-            .onAppear {
-                clearNullNotes()
+            .alert("Create new folder", isPresented: $isAddingNewFolder) {
+                TextField("Enter title", text: $folderName)
+                Button("Create", action: {
+                    self.saveFolder(withTitle: self.folderName)
+                })
+                Button("Cancel", role: .cancel) {}
             }
             .navigationDestination(for: NavigationDestination.self) { destination in
                 switch destination {
                 case .note(let note):
                     NoteView(note: note)
+                case .folder(let folder):
+                    NotesListView(path: $path)
                 }
-            }
-            .navigationDestination(for: String.self) { value in
-                Text(value)
             }
         }
     }
 
     var addButtonOnEmptyView: some View {
-        Button(action: addItem, label: {
-            Label("Add Item", systemImage: "plus")
+        Button(action: showFolderAdditionAlert, label: {
+            Label("Create a new folder", systemImage: "plus")
         })
     }
 
     var noteList: some View {
         List {
             ForEach(items) { item in
-                NavigationLink(item.title ?? "New Note", value: NavigationDestination.note(item))
+                NavigationLink(item.title ?? "New Note", value: NavigationDestination.folder(item))
             }
             .onDelete(perform: deleteItems)
         }
     }
 }
 
-private extension ContentView {
+private extension FoldersListView {
     var searchQuery: Binding<String> {
         Binding {
             searchText
@@ -75,12 +80,22 @@ private extension ContentView {
         }
     }
 
-    func addItem() {
+    func showFolderAdditionAlert() {
+        self.isAddingNewFolder.toggle()
+    }
+
+    func saveFolder(withTitle title: String) {
         withAnimation {
-            let newItem = Note(context: viewContext)
-            newItem.timestamp = Date()
-            newItem.id = UUID()
-            path.append(NavigationDestination.note(newItem))
+            let folder = Folder(context: viewContext)
+            folder.title = title
+            folder.timestamp = Date.now
+            folder.id = UUID()
+            do {
+                try viewContext.save()
+            } catch {
+                let nsError = error as NSError
+                fatalError("Failed to create folder: \(nsError), \(nsError.userInfo)")
+            }
         }
     }
 
@@ -96,22 +111,10 @@ private extension ContentView {
             }
         }
     }
-
-    func clearNullNotes() {
-        withAnimation {
-            items.filter({ $0.isNull() }).forEach(viewContext.delete)
-            do {
-                try viewContext.save()
-            } catch {
-                let nsError = error as NSError
-                fatalError("Failed to delete nil items: \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct FoldersListView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        FoldersListView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }
