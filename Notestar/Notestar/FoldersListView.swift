@@ -44,7 +44,7 @@ struct FoldersListView: View {
                 case .note(let note):
                     NoteView(note: note)
                 case .folder(let folder):
-                    NotesListView(path: $path)
+                    NotesListView(folder: folder, path: $path)
                 }
             }
         }

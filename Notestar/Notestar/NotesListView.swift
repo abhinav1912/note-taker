@@ -6,8 +6,10 @@ import CoreData
 struct NotesListView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Binding private var path: NavigationPath
+    private let folder: Folder
 
-    init(path: Binding<NavigationPath>) {
+    init(folder: Folder, path: Binding<NavigationPath>) {
+        self.folder = folder
         self._path = path
     }
 
@@ -18,26 +20,26 @@ struct NotesListView: View {
     @State var searchText = ""
 
     var body: some View {
-        NavigationStack(path: $path) {
-            if items.count == .zero {
-                addButtonOnEmptyView
+        if items.count == .zero {
+            addButtonOnEmptyView
+        }
+        noteList
+        .searchable(text: searchQuery)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                EditButton()
             }
-            noteList
-            .searchable(text: searchQuery)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
+            ToolbarItem {
+                Button(action: addItem) {
+                    Label("Add Item", systemImage: "plus")
                 }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
-            .onAppear {
-                clearNullNotes()
             }
         }
+        .onAppear {
+            clearNullNotes()
+            items.nsPredicate = NSPredicate(format: "parentFolder = %@", folder)
+        }
+        .navigationTitle(folder.title ?? "New Folder")
     }
 
     var addButtonOnEmptyView: some View {
@@ -74,8 +76,6 @@ private extension NotesListView {
         withAnimation {
             let newItem = Note(context: viewContext)
             newItem.timestamp = Date()
-            let f = Folder(context: viewContext)
-
             newItem.id = UUID()
             path.append(NavigationDestination.note(newItem))
         }
