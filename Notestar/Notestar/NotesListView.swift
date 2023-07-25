@@ -40,6 +40,7 @@ struct NotesListView: View {
             items.nsPredicate = NSPredicate(format: "parentFolder = %@", folder)
         }
         .navigationTitle(folder.title ?? "New Folder")
+        .navigationBarTitleDisplayMode(.inline)
     }
 
     var addButtonOnEmptyView: some View {
@@ -77,6 +78,7 @@ private extension NotesListView {
             let newItem = Note(context: viewContext)
             newItem.timestamp = Date()
             newItem.id = UUID()
+            newItem.parentFolder = folder
             path.append(NavigationDestination.note(newItem))
         }
     }
